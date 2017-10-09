@@ -7,6 +7,9 @@ import datetime
 #
 # It logs the last activity of every user posting and returns it upon request.
 # It logs time, post, nickname, channel.
+#
+# user = The one used the bot (or posted a random line)
+# nick = The nickname requested by the user
 
 class Module():
     def __init__(self):
@@ -47,7 +50,7 @@ def main(cmd, info, db, irc):
             else:
                 toSend = '{} was last seen at {} UTC [{} ago], saying "{}"'.format(info[3], get[1], ago, get[0])
         elif arg == '':
-            return irc.privmsg(channel, 'Usage: {}seen <NICKNAME>'.format(info[4]))
+            return irc.privmsg(channel, 'Usage: {}seen <NICKNAME>'.format(irc.prefix))
         else: return irc.privmsg(channel, "Sorry, I have't seen {} around".format(arg))
 
         if arg == usernick:

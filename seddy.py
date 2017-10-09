@@ -25,7 +25,7 @@ class Queue:
         self.size = size
         self.c = channel
         self.data = {}
-        for c in irc.channels:
+        for c in irc.chanDict:
             c = c.strip()
             self.data[c] = [None]*size
             self.tail[c] = 0

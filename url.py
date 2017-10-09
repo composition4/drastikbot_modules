@@ -39,7 +39,7 @@ def main(cmd, info, db, irc):
         if not (u.startswith('http://') or u.startswith('https://')):
             u = 'http://' + u
             
-        r = requests.get(u, stream = True, timeout=2)
+        r = requests.get(u, stream = True, headers={"user-agent": "w3m/0.52"}, timeout=2)
         data = ''
         try:
             for i in r.iter_content(chunk_size=512, decode_unicode=True):
