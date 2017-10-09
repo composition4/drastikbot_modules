@@ -39,7 +39,7 @@ def main(cmd, info, db, irc):
             reciever  = arg_list[0]
             msg       = arg_list[1]
         except IndexError:
-            irc.privmsg(channel, 'Usage: {}tell <NICKNAME> <MESSAGE>'.format(irc.prefix))
+            irc.privmsg(channel, 'Usage: {}tell <NICKNAME> <MESSAGE>'.format(info[4]))
 
         #if usernick == reciever:
         #    irc.privmsg(channel, 'You can tell yourself that.')

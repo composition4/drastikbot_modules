@@ -50,7 +50,7 @@ def main(cmd, info, db, irc):
             else:
                 toSend = '{} was last seen at {} UTC [{} ago], saying "{}"'.format(info[3], get[1], ago, get[0])
         elif arg == '':
-            return irc.privmsg(channel, 'Usage: {}seen <NICKNAME>'.format(irc.prefix))
+            return irc.privmsg(channel, 'Usage: {}seen <NICKNAME>'.format(info[4]))
         else: return irc.privmsg(channel, "Sorry, I have't seen {} around".format(arg))
 
         if arg == usernick:
