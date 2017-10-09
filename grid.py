@@ -160,7 +160,7 @@ class TheGrid():
         elif mode == 'blacklist': edom = 'whitelist'
 
         if module not in botsys[0]:
-            return self.irc.notice(self.user, 'Module "{}" is not loaded.'.format(module))
+            return self.irc.notice(self.user, 'Module "{}" is not loaded.'.format(module)) 
         try:
             c = self.config_r['irc']['modules']['settings'][module]
             if edom in c and len(c[edom]) != 0:
@@ -172,6 +172,8 @@ class TheGrid():
         if (self.user == self.owner) or (channel in self.admins[self.user]):
             try: self.config_r['irc']['modules']['settings'][module][mode].append(channel)
             except KeyError: self.config_r['irc']['modules']['settings'][module] = {mode: [channel]}
+            except KeyError: self.config_r['irc']['modules']['settings'] = {module : {mode: [channel]}}
+            except KeyError: self.config_r['irc']['modules'] = {"settings": {module : {mode: [channel]}}}
             self.config_w(self.config_r)
             return self.irc.notice(self.user, 'Done.')
 
@@ -199,7 +201,10 @@ class TheGrid():
             
     def set_chan_prefix(self, channel, prefix):
         if (self.user == self.owner) or (channel in self.admins[self.user]):
-            self.config_r['irc']['channels']['settings'][channel]['prefix'] = prefix
+            try: self.config_r['irc']['channels']['settings'][channel]['prefix'].append(prefix)
+            except KeyError: self.config_r['irc']['channels']['settings'][channel] = {"prefix": prefix }
+            except KeyError: self.config_r['irc']['channels']['settings'] = {channel : {"prefix": prefix }}
+            except KeyError: self.config_r['irc']['channels'] = {"settings": {channel : {"prefix": prefix }}}
             self.config_w(self.config_r)
             return self.irc.notice(self.user, 'Changed the prefix for channel "{}" to "{}"'.format(channel, prefix))
 
